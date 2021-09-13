@@ -1,0 +1,204 @@
+/*\
+|*|   Header
+\*/
+
+header {
+  box-sizing: border-box;
+  padding: 0 .5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  user-select: none;
+}
+
+.btn-add {
+  width: 4rem;
+  line-height: 1.5rem;
+  color: white;
+  border-color: transparent;
+  border-radius: .3rem;
+  cursor: pointer;
+}
+
+/*\
+|*|   Add task form
+\*/
+
+.add-form {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 0;
+}
+
+.task-description {
+  border-radius: .3rem;
+  border: 1px solid var(--border-color);
+  flex: 1;
+}
+
+.btn-submit {
+  width: 4rem;
+  line-height: 1.5rem;
+  border-color: transparent;
+  border-radius: .3rem;
+  color: white;
+  background-color: green;
+  margin-left: .5rem;
+  cursor: pointer;
+}
+
+.warning {
+  align-self: center;
+}
+
+/*\
+|*|   Todos element
+\*/
+
+.todos {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.todo {
+  margin: .3rem;
+  padding: 0 .8rem;
+  border: var(--border-thickness) solid var(--border-color);
+  border-radius: .3rem;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-remove-task {
+  flex: none;
+}
+
+.todo.done {
+  color: gray;
+  text-decoration: line-through;
+  background-color: #eee;
+}
+
+/*\
+|*|     Sign in form
+\*/
+
+.auth-div {
+  --font-size: 1.1rem;
+
+  position: absolute;
+  left: 1rem;
+  font-size: var(--font-size);
+  padding: .5rem;
+  border: var(--border-thickness) solid var(--border-color);
+  border-radius: .3rem;
+  user-select: none;
+  background-color: white;
+}
+
+.auth-toggle {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: var(--font-size);
+}
+
+.auth-error-warning {
+  background-color: rgb(255, 148, 148);
+  border-radius: .3rem;
+  padding: .5rem;
+  margin-top: .5rem;
+}
+
+.auth-form {
+  margin-top: .5rem;
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+}
+
+.auth-form input[type='text'] {
+  line-height: var(--font-size);
+}
+
+.auth-form input:not([type='submit']) {
+  margin-bottom: .5rem;
+}
+
+.auth-form input[type='submit'] {
+  font-size: var(--font-size);
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: .3rem;
+  cursor: pointer;
+}
+
+/*\
+|*|     Log out element
+\*/
+
+.logout-btns {
+  margin-top: .5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.logout-btns button {
+  border: var(--border-thickness) solid var(--border-color);
+  border-radius: .3rem;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: var(--font-size);
+  min-width: 13ch;
+}
+
+#delete-user {
+  background-color: brown;
+  color: white;
+  margin-top: .5rem;
+}
+
+/*\
+|*|     Help div
+\*/
+
+.help-div {
+  font-size: 1.1rem;
+  position: absolute;
+  right: 1rem;
+  border: var(--border-thickness) solid var(--border-color);
+  border-radius: .3rem;
+  padding: .5rem;
+  cursor: help;
+}
+
+.help-div::after {
+  content: "Double click to toggle task completion";
+  position: absolute;
+  width: 11ch;
+  height: auto;
+  top: 0;
+  right: calc(100% + 1rem);
+  display: none;
+}
+
+.help-div:hover::after {
+  display: block;
+}
+
+/*\
+|*|   Footer
+\*/
+
+footer {
+  user-select: none;
+}
