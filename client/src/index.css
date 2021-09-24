@@ -1,0 +1,26 @@
+:root {
+    --color-text-dark: #333;
+    --color-text-light: #fff;
+    --color-text-inactive: #ccc;
+
+    --color-light: #525C66;
+    --color-medium: #3D444D;
+    --color-dark: #333940;
+    
+    --color-func-blue: #C2DAF2;
+    --color-func-green: #B6F2B6;
+    --color-func-scroll-thumb: #8FA1B2;
+
+    --color-info-ok: #60BF60;
+    --color-info-error: #BF6060;
+}
+
+body {
+    background-color: var(--color-light);
+    color: var(--color-text-light);
+    
+    font-family: sans-serif;
+
+    margin: 0;
+    padding: 0;
+}
