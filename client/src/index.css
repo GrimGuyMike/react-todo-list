@@ -13,14 +13,32 @@
 
     --color-info-ok: #60BF60;
     --color-info-error: #BF6060;
+
+    --radius-s: .3rem;
+    --radius-l: .5rem;
+
+    --spacing-s: .5rem;
+    --spacing-m: 1rem;
+    --spacing-l: 3rem;
+
+    --duration-s: 200ms;
 }
 
 body {
     background-color: var(--color-light);
     color: var(--color-text-light);
+    height: 100vh;
     
     font-family: sans-serif;
 
     margin: 0;
     padding: 0;
+}
+
+#root {
+    height: inherit;
+}
+
+.App {
+    height: inherit;
 }

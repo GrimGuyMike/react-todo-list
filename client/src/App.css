@@ -1,3 +1,12 @@
+@keyframes fadeIn {
+    from {opacity: 0};
+    to {opacity: 1};
+}
+
+/*\
+|*|     HEADER
+\*/
+
 header {
     background-color: var(--color-dark);
     height: 100px;
@@ -13,4 +22,105 @@ header {
     height: 40px;
     font-size: 36px;
     margin: 30px;
+}
+
+/*\
+|*|     CONTENT
+\*/
+
+#content {
+    position: relative;
+    height: calc(100% - 100px);
+}
+
+/*      SIGN FORM       */
+
+#sign-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12pt;
+}
+
+#sign-form > .btns {
+    width: fit-content;
+    margin-bottom: -1px;
+}
+
+#sign-form > .btns > div {
+    display: inline-block;
+    border: none;
+    background-color: var(--color-medium);
+    color: var(--color-text-inactive);
+    border-top-left-radius: var(--radius-l);
+    border-top-right-radius: var(--radius-l);
+    cursor: pointer;
+    padding: 5px 50px;
+}
+
+#sign-form > .btns > div.active {
+    background-color: var(--color-dark);
+    color: var(--color-text-light);
+}
+
+#sign-form > form {
+    display: none;
+    background-color: var(--color-dark);
+    border-radius: var(--radius-l);
+    border-top-left-radius: initial;
+    padding: 15px;
+}
+
+#sign-form > form.active {
+    display: flex;
+    width: 600px;
+    flex-direction: column;
+    align-items: justify;
+}
+
+#sign-form > form.active > * {
+    animation: fadeIn var(--duration-s) ease-out 1 normal;
+}
+
+#sign-form > form.active > *:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+#sign-form > form.active > div {
+    display: flex;
+    align-items: center;
+}
+
+#sign-form > form.active > div > input {
+    flex: 1;
+    margin-left: var(--spacing-s);
+    height: 20px;
+    border-radius: var(--radius-s);
+    border: none;
+}
+
+#sign-form > form.active > .error {
+    height: 25px;
+    background-color: var(--color-info-error);
+    border-radius: var(--radius-s);
+    align-items: center;
+    justify-content: center;
+}
+
+#sign-form > form.active > input[type='submit'] {
+    height: 25px;
+    background-color: var(--color-func-green);
+    color: var(--color-text-dark);
+    border: none;
+    border-radius: var(--radius-s);
+    cursor: pointer;
+    font-size: 12pt;
+    box-shadow: none;
+
+    transition: all var(--duration-s) ease-out;
+}
+
+#sign-form > form.active > input[type='submit']:hover {
+    box-shadow: var(--color-func-green) 0 0 10px 0;
 }
