@@ -18,9 +18,7 @@ const UserMenu = () => {
 
     useEffect(() => {
         window.addEventListener('click', handleClickOutside);
-        return () => {
-            window.removeEventListener('click', handleClickOutside);
-        }
+        return () => window.removeEventListener('click', handleClickOutside);
     }, []);
 
     const toggleMenu = () => setOpen(open => !open);

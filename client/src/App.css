@@ -281,3 +281,66 @@ header {
 }
 
 /* FORM */
+
+#main-screen > .todos > form {
+    --form-size: 75px;
+
+    width: var(--form-size);
+    height: var(--form-size);
+    border-radius: calc(var(--form-size) / 2);
+    background-color: var(--color-func-green);
+    position: sticky;
+    bottom: 0;
+    left: calc(100% - var(--form-size) - var(--spacing-m));
+
+    transition-duration: var(--duration-s);
+    transition-property: 
+        width,
+        border-radius,
+        left;
+    transition-timing-function: ease-out;
+}
+
+#main-screen > .todos > form > [type='text'] {
+    border-radius: var(--radius-l);
+    position: absolute;
+    top: var(--spacing-s);
+    left: var(--spacing-s);
+    padding: 0 var(--spacing-s);
+    box-sizing: border-box;
+    height: calc(var(--form-size) - 2 * var(--spacing-s));
+    font-size: 18pt;
+    width: 0;
+    opacity: 0;
+    border: 1px solid black;
+
+    transition-duration: var(--duration-s);
+    transition-property:
+        opacity,
+        width;
+    transition-timing-function: ease-out;
+}
+
+#main-screen > .todos > form > .btn {
+    cursor: pointer;
+    user-select: none;
+    color: var(--color-text-dark);
+    line-height: var(--form-size);
+    width: var(--form-size);
+    text-align: center;
+    font-size: 48pt;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#main-screen > .todos > form.open {
+    border-radius: var(--radius-l);
+    left: 0;
+    width: calc(100% - var(--spacing-m));
+}
+
+#main-screen > .todos > form.open > [type='text'] {
+    opacity: 1;
+    width: calc(100% - var(--form-size) - var(--spacing-s));
+}

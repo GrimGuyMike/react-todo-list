@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from "react";
+
 const MainScreen = () => {
 
     const todos = [
@@ -17,6 +19,18 @@ const MainScreen = () => {
         {text:'some random text as if i have something to say or to state or whatever just get it done already', done:true}
     ];
 
+    const [formOpen, setFormOpen] = useState(false);
+    const formRef = useRef(null);
+
+    const handleClickOutside = e => {
+        if(!formRef.current.contains(e.target)) setFormOpen(false);
+    };
+
+    useEffect(() => {
+        window.addEventListener('click', handleClickOutside);
+        return () => window.removeEventListener('click', handleClickOutside);
+    }, []);
+
     return (
         <div id="main-screen">
             <div className="todos">
@@ -27,6 +41,11 @@ const MainScreen = () => {
                         <span className='delete'>&times;</span>
                     </div>
                 ))}
+
+                <form className={formOpen && 'open'} ref={formRef}>
+                    <input type='text' />
+                    <span className='btn' onClick={() => setFormOpen(!formOpen)}>+</span>
+                </form>
             </div>
         </div>
     );
