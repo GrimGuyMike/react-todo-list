@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn, register } from "../state/actions/authActions";
-import { clearErrors, getErrors } from "../state/actions/errorActions";
+import { clearErrors } from "../state/actions/errorActions";
 
 const SignForm = () => {
 
@@ -139,6 +139,6 @@ const SignForm = () => {
         </div>
     );
 
-}
+};
 
 export default SignForm;

@@ -9,11 +9,10 @@
 
 header {
     background-color: var(--color-dark);
+    position: relative;
     height: 100px;
-
     padding: 0;
     margin: 0;
-
     user-select: none;
 }
 
@@ -22,6 +21,57 @@ header {
     height: 40px;
     font-size: 36px;
     margin: 30px;
+}
+
+#user-menu {
+    position: absolute;
+    right: 0;
+    top: 0;
+    min-width: 150px;
+    height: 40px;
+    margin: 30px;
+    background-color: var(--color-func-blue);
+    color: var(--color-text-dark);
+    border-radius: var(--radius-l);
+    display: flex;
+    flex-direction: column;
+    align-items: justify;
+    overflow-x: clip;
+    text-align: center;
+    z-index: 1;
+
+    transition-duration: var(--duration-s);
+    transition-property: height;
+    transition-timing-function: ease-out;
+}
+
+#user-menu.open {
+    height: 130px;
+}
+
+#user-menu > .name {
+    font-size: 20pt;
+    max-width: 300px;
+    line-height: 40px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+#user-menu > :not(.name) {
+    color: var(--color-text-light);
+    margin: 10px;
+    background-color: var(--color-light);
+    border-radius: var(--radius-s);
+    line-height: 30px;
+    cursor: pointer;
+}
+
+#user-menu > :last-child {
+    margin-top: 0;
+}
+
+#user-menu > .delete {
+    background-color: var(--color-info-error);
 }
 
 /*\
@@ -46,10 +96,11 @@ header {
 #sign-form > .btns {
     width: fit-content;
     margin-bottom: -1px;
+    display: flex;
+    align-items: flex-end;
 }
 
 #sign-form > .btns > div {
-    display: inline-block;
     border: none;
     background-color: var(--color-medium);
     color: var(--color-text-inactive);
