@@ -52,6 +52,9 @@ header {
 #user-menu > .name {
     font-size: 20pt;
     max-width: 300px;
+    box-sizing: border-box;
+    overflow-x: clip;
+    text-overflow: ellipsis;
     line-height: 40px;
     padding: 0 10px;
     cursor: pointer;
@@ -81,6 +84,8 @@ header {
 #content {
     position: relative;
     height: calc(100% - 100px);
+    width: 800px;
+    margin: 0 auto;
 }
 
 /*      SIGN FORM       */
@@ -175,3 +180,104 @@ header {
 #sign-form > form.active > input[type='submit']:hover {
     box-shadow: var(--color-func-green) 0 0 10px 0;
 }
+
+/*      MAIN SCREEN     */
+
+#main-screen {
+    background-color: var(--color-dark);
+    border-radius: var(--radius-l);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    height: calc(100% - 2 * var(--spacing-l));
+    transform: translate(-50%, -50%);
+}
+
+/* TODOS */
+
+#main-screen > .todos {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 2 * var(--spacing-m));
+    height: calc(100% - 2 * var(--spacing-m));
+    border-radius: var(--radius-l);
+    overflow-y: scroll;
+}
+
+
+#main-screen > .todos > .todo {
+    --todo-height: 60px;
+
+    height: var(--todo-height);
+    margin: var(--spacing-m) 0;
+    margin-right: var(--spacing-m);
+    width: auto;
+    display: flex;
+    align-items: center;
+    background-color: var(--color-light);
+    border-radius: var(--radius-s);
+}
+
+#main-screen > .todos > .todo:first-child {
+    margin-top: 0;
+}
+
+#main-screen > .todos > .todo:last-child {
+    margin-bottom: 0;
+}
+
+#main-screen > .todos > .todo > [type='checkbox'] {
+    --size: 30px;
+
+    margin: calc((var(--todo-height) - var(--size)) / 2);
+    width: var(--size);
+    height: var(--size);
+}
+
+#main-screen > .todos > .todo > .text {
+    flex: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: clip;
+    font-size: 18pt;
+    max-height: 100%;
+    cursor: default;
+}
+
+#main-screen > .todos > .todo > .delete {
+    --size: 30px;
+
+    color: var(--color-info-error);
+    font-size: 30pt;
+    line-height: var(--size);
+    margin: calc((var(--todo-height) - var(--size))/2);
+    cursor: pointer;
+    user-select: none;
+}
+
+#main-screen > .todos > .todo.done {
+    background-color: var(--color-medium);
+    color: var(--color-text-inactive);
+}
+
+#main-screen > .todos > .todo.done > .text {
+    text-decoration: line-through;
+}
+
+/* SCROLLBAR */
+
+#main-screen > .todos::-webkit-scrollbar {
+    width: .6vw;
+    background-color: var(--color-light);
+    border-radius: .3vw;
+}
+
+#main-screen > .todos::-webkit-scrollbar-thumb {
+    background-color: var(--color-func-scroll-thumb);
+    border-radius: .3vw;
+}
+
+/* FORM */
