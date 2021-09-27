@@ -239,6 +239,7 @@ header {
 #main-screen > .todos > .todo > .checkbox {
     --size: 30px;
 
+    position: relative;
     margin: calc((var(--todo-height) - var(--size)) / 2);
     width: var(--size);
     height: var(--size);
@@ -276,12 +277,16 @@ header {
     text-decoration: line-through;
 }
 
-#main-screen > .todos > .todo.done > .checkbox {
-    border-color: var(--color-text-inactive);
-    background-image: url('/checkmark.png');
-    background-size: 65%;
-    background-position: center;
-    background-repeat: no-repeat;
+#main-screen > .todos > .todo.done > .checkbox::after {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: inherit;
+    height: inherit;
+    color: var(--color-info-ok);
+    text-align: center;
+    font-size: 20px;
 }
 
 /* EMPTY LIST MESSAGE */
