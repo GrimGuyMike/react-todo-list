@@ -27,7 +27,6 @@ router.post('/', (req, res) => {
             email,
             password
         });
-        console.log(JSON.stringify(newUser));
 
         // Create salt and hash the password
         bcrypt.genSalt(10, (err, salt) => {

@@ -39,6 +39,7 @@ header {
     overflow-x: clip;
     text-align: center;
     z-index: 1;
+    animation: fadeIn var(--duration-s) ease-out 1 normal;
 
     transition-duration: var(--duration-s);
     transition-property: height;
@@ -162,6 +163,7 @@ header {
     border-radius: var(--radius-s);
     align-items: center;
     justify-content: center;
+    user-select: none;
 }
 
 #sign-form > form.active > input[type='submit'] {
@@ -184,6 +186,9 @@ header {
 /*      MAIN SCREEN     */
 
 #main-screen {
+    --scrollbar-width: .6vw;
+    --form-size: 75px;
+
     background-color: var(--color-dark);
     border-radius: var(--radius-l);
     position: absolute;
@@ -192,6 +197,7 @@ header {
     width: 100%;
     height: calc(100% - 2 * var(--spacing-l));
     transform: translate(-50%, -50%);
+    animation: fadeIn var(--duration-s) ease-out 1 normal;
 }
 
 /* TODOS */
@@ -219,6 +225,7 @@ header {
     align-items: center;
     background-color: var(--color-light);
     border-radius: var(--radius-s);
+    animation: fadeIn var(--duration-s) ease-out 1 normal;
 }
 
 #main-screen > .todos > .todo:first-child {
@@ -226,15 +233,18 @@ header {
 }
 
 #main-screen > .todos > .todo:last-child {
-    margin-bottom: 0;
+    margin-bottom: calc(var(--form-size) + var(--spacing-m));
 }
 
-#main-screen > .todos > .todo > [type='checkbox'] {
+#main-screen > .todos > .todo > .checkbox {
     --size: 30px;
 
     margin: calc((var(--todo-height) - var(--size)) / 2);
     width: var(--size);
     height: var(--size);
+    border: 2px solid var(--color-text-light);
+    border-radius: var(--radius-s);
+    cursor: pointer;
 }
 
 #main-screen > .todos > .todo > .text {
@@ -244,7 +254,6 @@ header {
     overflow: clip;
     font-size: 18pt;
     max-height: 100%;
-    cursor: default;
 }
 
 #main-screen > .todos > .todo > .delete {
@@ -267,31 +276,48 @@ header {
     text-decoration: line-through;
 }
 
+#main-screen > .todos > .todo.done > .checkbox {
+    border-color: var(--color-text-inactive);
+    background-image: url('/checkmark.png');
+    background-size: 65%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* EMPTY LIST MESSAGE */
+
+#main-screen > .todos > .empty-msg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: normal;
+    user-select: none;
+}
+
 /* SCROLLBAR */
 
 #main-screen > .todos::-webkit-scrollbar {
-    width: .6vw;
+    width: var(--scrollbar-width);
     background-color: var(--color-light);
     border-radius: .3vw;
 }
 
 #main-screen > .todos::-webkit-scrollbar-thumb {
     background-color: var(--color-func-scroll-thumb);
-    border-radius: .3vw;
+    border-radius: calc(var(--scrollbar-width) / 2);
 }
 
 /* FORM */
 
-#main-screen > .todos > form {
-    --form-size: 75px;
-
+#main-screen > form {
     width: var(--form-size);
     height: var(--form-size);
     border-radius: calc(var(--form-size) / 2);
     background-color: var(--color-func-green);
-    position: sticky;
-    bottom: 0;
-    left: calc(100% - var(--form-size) - var(--spacing-m));
+    position: absolute;
+    right: calc(var(--spacing-m) * 2 + var(--scrollbar-width));
+    bottom: var(--spacing-m);
 
     transition-duration: var(--duration-s);
     transition-property: 
@@ -301,7 +327,7 @@ header {
     transition-timing-function: ease-out;
 }
 
-#main-screen > .todos > form > [type='text'] {
+#main-screen > form > [type='text'] {
     border-radius: var(--radius-l);
     position: absolute;
     top: var(--spacing-s);
@@ -321,7 +347,7 @@ header {
     transition-timing-function: ease-out;
 }
 
-#main-screen > .todos > form > .btn {
+#main-screen > form > .btn {
     cursor: pointer;
     user-select: none;
     color: var(--color-text-dark);
@@ -334,13 +360,13 @@ header {
     right: 0;
 }
 
-#main-screen > .todos > form.open {
+#main-screen > form.open {
     border-radius: var(--radius-l);
-    left: 0;
-    width: calc(100% - var(--spacing-m));
+    right: calc(var(--spacing-m) * 2 + var(--scrollbar-width));
+    width: calc(100% - var(--spacing-m) * 3 - var(--scrollbar-width));
 }
 
-#main-screen > .todos > form.open > [type='text'] {
+#main-screen > form.open > [type='text'] {
     opacity: 1;
     width: calc(100% - var(--form-size) - var(--spacing-s));
 }

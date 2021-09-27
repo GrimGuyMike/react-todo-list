@@ -2,12 +2,13 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn, register } from "../state/actions/authActions";
 import { clearErrors } from "../state/actions/errorActions";
+import { LOGIN_FAIL, REGISTER_FAIL } from "../state/actions/types";
 
 const SignForm = () => {
 
     const dispatch = useDispatch();
 
-    const error = useSelector(state => state.error.message);
+    const error = useSelector(state => state.error);
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -35,7 +36,7 @@ const SignForm = () => {
         document
         .querySelectorAll(`#sign-form *.${className}`)
         .forEach(el => el.classList.add('active'));
-    }
+    };
 
     const onSubmit = e => {
         e.preventDefault();
@@ -60,7 +61,21 @@ const SignForm = () => {
             }
             default: return;
         }
-    }
+    };
+
+    const displayError = () => {
+        switch(error.id) {
+            default:
+                return;
+            case REGISTER_FAIL:
+            case LOGIN_FAIL:
+                return (
+                    <div className="error">
+                        {error.message}
+                    </div>
+                );
+        }
+    };
 
     return (
         <div id='sign-form'>
@@ -76,7 +91,7 @@ const SignForm = () => {
             </div>
 
             <form className="in active" onSubmit={onSubmit}>
-                {error && <div className="error">{error}</div>}
+                {displayError()}
 
                 <div>
                     <label htmlFor="email">E-mail:</label>
@@ -102,7 +117,7 @@ const SignForm = () => {
             </form>
 
             <form className="up" onSubmit={onSubmit}>
-                {error && <div className="error">{error}</div>}
+                {displayError()}
 
                 <div>
                     <label htmlFor="name">User name:</label>

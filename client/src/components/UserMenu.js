@@ -6,7 +6,7 @@ const UserMenu = () => {
 
     const dispatch = useDispatch();
 
-    const id = useSelector(state => state.auth.user?._id.toString());
+    const id = useSelector(state => state.auth.user?.id);
     const name = useSelector(state => state.auth.user?.name);
 
     const [open, setOpen] = useState(false);

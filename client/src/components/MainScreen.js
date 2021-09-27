@@ -1,52 +1,82 @@
 import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addTodo, fetchTodos, removeTodo, toggleTodo } from "../state/actions/todoActions";
 
 const MainScreen = () => {
 
-    const todos = [
-        {text:'some random text as if i have something to say or to state or whatever just get it done already', done:false},
-        {text:'some random text as if i have something to say or to state or whatever just get it done already', done:true},
-        {text:'78a3hrn9c82hcha7c2938rg2637gnrcagrcg732gjd9732jg3gj98rgd79g3r789n7832grnac78gn78cgn73g2nc8gn3gnr', done:false},
-        {text:'some random text as if i have something to say or to state or whatever just get it done already', done:false},
-        {text:'some random text as if i have something to say or to state or whatever just get it done already', done:true},
-        {text:'some random text as if i have something to say or to state or whatever just get it done already', done:true},
-        {text:'some random text as if i have something to say or to state or whatever just get it done already', done:false},
-        {text:'some random text as if i have something to say or to state or whatever just get it done already', done:false},
-        {text:'some random text as if i have something to say or to state or whatever just get it done already', done:true},
-        {text:'some random text as if i have something to say or to state or whatever just get it done already', done:true},
-        {text:'some random text as if i have something to say or to state or whatever just get it done already', done:false},
-        {text:'some random text as if i have something to say or to state or whatever just get it done already', done:true},
-        {text:'some random text as if i have something to say or to state or whatever just get it done already', done:true},
-        {text:'some random text as if i have something to say or to state or whatever just get it done already', done:true}
-    ];
+    const dispatch = useDispatch();
+
+    const todos = useSelector(state => state.todos.todos);
+
+    const [newTodo, setNewTodo] = useState('');
 
     const [formOpen, setFormOpen] = useState(false);
     const formRef = useRef(null);
+    const formInputRef = useRef(null);
 
-    const handleClickOutside = e => {
+    const handleClickOutsideForm = e => {
         if(!formRef.current.contains(e.target)) setFormOpen(false);
     };
 
+    const toggleForm = () => {
+        if(!formOpen) {
+            setNewTodo('');
+            formInputRef.current.focus();
+        }
+        setFormOpen(!formOpen);
+    };
+
+    const onSubmit = e => {
+        e.preventDefault();
+        dispatch(addTodo(newTodo));
+        setNewTodo('');
+    };
+
+    const toggleTodoStatus = todo => {
+        dispatch(toggleTodo(todo));
+    };
+
     useEffect(() => {
-        window.addEventListener('click', handleClickOutside);
-        return () => window.removeEventListener('click', handleClickOutside);
+        window.addEventListener('click', handleClickOutsideForm);
+        dispatch(fetchTodos());
+        return () => window.removeEventListener('click', handleClickOutsideForm);
     }, []);
 
     return (
         <div id="main-screen">
             <div className="todos">
-                {todos.map((todo, idx) => (
-                    <div className={`todo ${todo.done && 'done'}`} key={idx}>
-                        <input type="checkbox" checked={todo.done} />
-                        <span className='text'>{todo.text}</span>
-                        <span className='delete'>&times;</span>
-                    </div>
-                ))}
-
-                <form className={formOpen && 'open'} ref={formRef}>
-                    <input type='text' />
-                    <span className='btn' onClick={() => setFormOpen(!formOpen)}>+</span>
-                </form>
+                {
+                    todos.length ?
+                    todos.map((todo, idx) => (
+                        <div className={`todo ${todo.done && 'done'}`} key={idx}>
+                            <div
+                                className='checkbox'
+                                onClick={() => toggleTodoStatus(todo)}
+                            ></div>
+                            <span className='text'>{todo.text}</span>
+                            <span
+                                className='delete'
+                                onClick={() => dispatch(removeTodo(todo._id))}
+                            >&times;</span>
+                        </div>
+                    )) :
+                    <h1 className='empty-msg'>The list is empty!</h1>
+                }
             </div>
+
+            <form
+                    className={formOpen && 'open'}
+                    onSubmit={onSubmit}
+                    ref={formRef}
+            >
+                <input
+                    type='text'
+                    value={newTodo}
+                    onChange={e => setNewTodo(e.target.value)}
+                    ref={formInputRef}
+                />
+                <span className='btn' onClick={toggleForm}>+</span>
+            </form>
         </div>
     );
 
