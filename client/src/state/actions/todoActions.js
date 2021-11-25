@@ -15,7 +15,7 @@ export const fetchTodos = () => (dispatch, getState) => {
 
     const headers = headersConfig(getState);
 
-    fetch("/api/todos", {
+    fetch("/api/todo", {
         method: 'GET',
         headers
     })
@@ -33,7 +33,7 @@ export const addTodo = text => (dispatch, getState) => {
 
     const headers = headersConfig(getState);
 
-    fetch("/api/todos", {
+    fetch("/api/todo", {
         method: 'POST',
         headers,
         body: JSON.stringify({
@@ -53,7 +53,7 @@ export const removeTodo = todoId => (dispatch, getState) => {
 
     const headers = headersConfig(getState);
 
-    fetch(`/api/todos/${todoId}`, {
+    fetch(`/api/todo/${todoId}`, {
         method: 'DELETE',
         headers
     })
@@ -69,7 +69,7 @@ export const toggleTodo = todo => (dispatch, getState) => {
 
     const headers = headersConfig(getState);
 
-    fetch(`/api/todos/${todo._id.toString()}`, {
+    fetch(`/api/todo/${todo._id.toString()}`, {
         method: 'PATCH',
         headers,
         body: JSON.stringify({ done: !todo.done })
@@ -88,7 +88,7 @@ export const deleteTodos = userId => (dispatch, getState) => {
 
     const headers = headersConfig(getState);
 
-    fetch(`/api/todos/deletemany/${userId}`, {
+    fetch(`/api/todo/deletemany/${userId}`, {
         method: 'DELETE',
         headers
     })

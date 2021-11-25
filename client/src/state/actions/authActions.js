@@ -31,7 +31,7 @@ export const register = userData => (dispatch, getState) => {
     const headers = headersConfig(getState);
     const body = JSON.stringify(userData);
 
-    fetch('/api/users', {
+    fetch('/api/user', {
         method: 'POST',
         headers,
         body
@@ -123,7 +123,7 @@ export const deleteUser = userId => (dispatch, getState) => {
 
     const headers = headersConfig(getState);
     
-    fetch(`/api/users/${userId}`, {
+    fetch(`/api/user/${userId}`, {
         method: 'DELETE',
         headers
     })
