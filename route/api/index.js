@@ -4,7 +4,7 @@ const authRouter = require('./auth');
 const userRouter = require('./user');
 const todoRouter = require('./todo');
 
-router.use('/auth', authRouter);
+router.use('/', authRouter);
 router.use('/user', userRouter);
 router.use('/todo', todoRouter);
 
