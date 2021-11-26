@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const apiRouter = require('./route/api');
 const path = require('path');
+const errorHandler = require('./middleware/errorHandler');
 
 const PORT = process.env.PORT || 5000;
 
@@ -12,5 +13,7 @@ app.use('/api', apiRouter);
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static(path.resolve(__dirname, 'client', 'build')));
 }
+
+app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
