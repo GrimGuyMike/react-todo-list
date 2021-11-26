@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const todoSchema = new Schema({
-
     text: {
         type: String,
         required: true
@@ -22,7 +21,6 @@ const todoSchema = new Schema({
         type: Boolean,
         default: false
     }
-
 });
 
-module.exports = Todo = mongoose.model('todo', todoSchema);
+module.exports = mongoose.model('todo', todoSchema);

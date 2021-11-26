@@ -1,22 +1,17 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-    name: {
+const refreshTokenSchema = new Schema({
+    userId: {
         type: String,
         required: true
     },
-    
-    email: {
+
+    token: {
         type: String,
         required: true,
         unique: true
-    },
-
-    password: {
-        type: String,
-        required: true
     }
 });
 
-module.exports = mongoose.model('user', userSchema);
+module.exports = mongoose.model('refreshToken', refreshTokenSchema);
