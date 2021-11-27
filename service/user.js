@@ -1,5 +1,6 @@
 const { User } = require('../database');
 const authService = require('./auth');
+const todoService = require('./todo');
 
 class UserService {
     async get(userId) {
@@ -19,6 +20,8 @@ class UserService {
 
     async delete(userId) {
         await authService.logout(userId);
+        await todoService.deleteAll(userId);
+
         await User.findByIdAndDelete(userId);
     };
 };
