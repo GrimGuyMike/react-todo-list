@@ -44,7 +44,7 @@ const MainScreen = () => {
                 {
                     todos.length ?
                     todos.map((todo, idx) => (
-                        <div className={`todo ${todo.done && 'done'}`} key={idx}>
+                        <div className={`todo ${todo.done ? 'done' : ''}`} key={idx}>
                             <div
                                 className='checkbox'
                                 onClick={() => dispatch(toggleTodo(todo))}
@@ -61,7 +61,7 @@ const MainScreen = () => {
             </div>
 
             <form
-                    className={formOpen && 'open'}
+                    className={formOpen ? 'open' : ''}
                     onSubmit={onSubmit}
                     ref={formRef}
             >
