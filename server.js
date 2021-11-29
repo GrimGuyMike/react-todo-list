@@ -5,11 +5,13 @@ const apiRouter = require('./route/api');
 const path = require('path');
 const errorHandler = require('./middleware/errorHandler');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors());
 
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static(path.resolve(__dirname, 'client', 'build')));
