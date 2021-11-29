@@ -63,7 +63,7 @@ class TodoService {
     };
 
     async deleteOne(userId, todoId) {
-        const todo = await Todo.exists({ _id: todoId });
+        const todo = await Todo.findOne({ _id: todoId });
         if(!todo) throw ApiError.NotFound('todo does not exist');
 
         if(todo.userId !== userId) throw ApiError.Forbidden('entry can only be deleted by its creator');
