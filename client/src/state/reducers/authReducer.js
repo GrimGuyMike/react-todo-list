@@ -35,7 +35,11 @@ export default function authReducer(state=initialState, action) {
                 ...state,
                 loading: false,
                 isAuthenticated: true,
-                user: action.payload
+                user: {
+                    id: action.payload.id,
+                    name: action.payload.name,
+                    email: action.payload.email
+                }
             };
 
         case REGISTER_FAIL:
@@ -54,11 +58,16 @@ export default function authReducer(state=initialState, action) {
 
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS: {
-            localStorage.setItem('token', action.payload.token);
+            localStorage.setItem('token', action.payload.access.token);
             return {
-                ...action.payload,
+                token: action.payload.access.token,
                 isAuthenticated: true,
-                loading: false
+                loading: false,
+                user: {
+                    id: action.payload.id,
+                    name: action.payload.name,
+                    email: action.payload.email
+                }
             };
         };
 

@@ -14,131 +14,124 @@ import { getErrors, clearErrors } from "./errorActions";
 import { fetchTodos, eraseTodos, deleteTodos } from "./todoActions";
 
 export const headersConfig = getState => {
-
     const headers = {
         "Content-Type": "application/json"
     };
     
     const token = getState().auth.token;
-    if(token) headers['x-auth-token'] = token;
+    if(token) headers['Authorization'] = `Bearer ${token}`;
 
     return headers;
-
 };
 
-export const register = userData => (dispatch, getState) => {
-
+export const register = userData => async (dispatch, getState) => {
     const headers = headersConfig(getState);
     const body = JSON.stringify(userData);
 
-    fetch('/api/user', {
+    const res = await fetch('/api/signup', {
         method: 'POST',
         headers,
         body
-    })
-    .then(res => {
-
-        if(!res.ok) return res.json().then(data => {
-            dispatch(getErrors(data.message, res.status, REGISTER_FAIL));
-            dispatch({ type: REGISTER_FAIL });
-        });
-
-        res.json().then(data => {
-            dispatch({
-                type: REGISTER_SUCCESS,
-                payload: data
-            });
-            dispatch(clearErrors());
-        });
-
     });
 
+    if(!res.ok) {
+        const data = await res.json();
+        dispatch(getErrors(data.message, res.status, REGISTER_FAIL));
+        dispatch({ type: REGISTER_FAIL });
+        return;
+    }
+
+    const data = await res.json();
+    dispatch({
+        type: REGISTER_SUCCESS,
+        payload: data
+    });
+    dispatch(clearErrors());
 };
 
-export const loadUser = () => (dispatch, getState) => {
-
+export const loadUser = () => async (dispatch, getState) => {
     dispatch({ type: USER_LOADING });
 
     const headers = headersConfig(getState);
 
-    fetch('/api/auth/user', {
+    const res = await fetch('/api/user', {
         method: 'GET',
         headers
-    })
-    .then(res => {
-
-        if(!res.ok) return res.json().then(data => {
-            dispatch(getErrors(data.mesage, res.status, AUTH_ERROR));
-            dispatch({ type: AUTH_ERROR });
-        });
-
-        res.json().then(data => dispatch({
-            type: USER_LOADED,
-            payload: data
-        }));
-
     });
 
+    if(!res.ok) {
+        const data = await res.json();
+        dispatch(getErrors(data.mesage, res.status, AUTH_ERROR));
+        dispatch({ type: AUTH_ERROR });
+        return;
+    }
+
+    const data = await res.json();
+    dispatch({
+        type: USER_LOADED,
+        payload: data
+    });
 };
 
-export const logIn = userData => (dispatch, getState) => {
-
+export const logIn = userData => async (dispatch, getState) => {
     const headers = headersConfig(getState);
     const body = JSON.stringify(userData);
 
-    fetch('/api/auth', {
+    const res = await fetch('/api/signin', {
         method: 'POST',
         headers,
         body
-    })
-    .then(res => {
-
-        if(!res.ok) return res.json().then(data => {
-            dispatch(getErrors(data.message, res.status, LOGIN_FAIL));
-            dispatch({ type: LOGIN_FAIL });
-        });
-
-        res.json().then(data => {
-            dispatch({
-                type: LOGIN_SUCCESS,
-                payload: data
-            });
-            dispatch(fetchTodos());
-            dispatch(clearErrors());
-        });
-
     });
 
+    if(!res.ok) {
+        const data = await res.json();
+        dispatch(getErrors(data.message, res.status, LOGIN_FAIL));
+        dispatch({ type: LOGIN_FAIL });
+        return;
+    }
+
+    const data = await res.json();
+    dispatch({
+        type: LOGIN_SUCCESS,
+        payload: data
+    });
+    dispatch(fetchTodos());
+    dispatch(clearErrors());
 };
 
-export const logOut = () => dispatch => {
+export const logOut = () => async (dispatch, getState) => {
+    const headers = headersConfig(getState);
+
+    const res = await fetch('/api/logout', {
+        method: 'POST',
+        headers
+    });
+
+    if(!res.ok) {
+        const data = await res.json();
+        dispatch(getErrors(data.message, res.status, 'LOGOUT_FAIL'));
+        return;
+    }
+
     dispatch(eraseTodos());
     dispatch({ type: LOGOUT_SUCCESS });
 };
 
-export const deleteUser = userId => (dispatch, getState) => {
-
-    dispatch(deleteTodos(userId));
-    dispatch(eraseTodos());
-
+export const deleteUser = () => async (dispatch, getState) => {
     const headers = headersConfig(getState);
-    
-    fetch(`/api/user/${userId}`, {
+
+    const res = await fetch('/api/user', {
         method: 'DELETE',
         headers
-    })
-    .then(res => {
-
-        if(!res.ok) return res.json(data => {
-            dispatch(getErrors(data.message, res.status, DELETE_USER_FAIL));
-            dispatch({ type: DELETE_USER_FAIL });
-        });
-
-        res.json().then(deletedUser => {
-            dispatch({ type: DELETE_USER_SUCCESS });
-            console.log('Deleted user:', deletedUser);
-        });
-
     });
 
+    if(!res.ok) {
+        const data = await res.json();
+        dispatch(getErrors(data.message, res.status, DELETE_USER_FAIL));
+        dispatch({ type: DELETE_USER_FAIL });
+        return;
+    }
+
+    dispatch(eraseTodos());
+    dispatch({ type: DELETE_USER_SUCCESS });
 };
