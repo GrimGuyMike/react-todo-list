@@ -11,7 +11,7 @@ import {
     DELETE_USER_FAIL
 } from "./types";
 import { getErrors, clearErrors } from "./errorActions";
-import { fetchTodos, eraseTodos, deleteTodos } from "./todoActions";
+import { fetchTodos, eraseTodos } from "./todoActions";
 
 export const headersConfig = getState => {
     const headers = {

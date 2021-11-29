@@ -9,90 +9,69 @@ import {
 } from "./types";
 import { headersConfig } from "./authActions";
 
-export const fetchTodos = () => (dispatch, getState) => {
-
+export const fetchTodos = () => async (dispatch, getState) => {
     dispatch({ type: TODOS_LOADING });
 
     const headers = headersConfig(getState);
 
-    fetch("/api/todo", {
+    const res = await fetch("/api/todo", {
         method: 'GET',
         headers
-    })
-    .then(res => res.json())
-    .then(todos => dispatch(
-        {
-            type: FETCH_TODOS,
-            payload: todos
-        }
-    ));
+    });
 
+    const data = await res.json();
+    dispatch({
+        type: FETCH_TODOS,
+        payload: data
+    });
 };
 
-export const addTodo = text => (dispatch, getState) => {
-
+export const addTodo = text => async (dispatch, getState) => {
     const headers = headersConfig(getState);
 
-    fetch("/api/todo", {
+    const res = await fetch("/api/todo", {
         method: 'POST',
         headers,
         body: JSON.stringify({
-            text,
-            userId: getState().auth.user.id
+            text
         })
-    })
-    .then(res => res.json())
-    .then(todo => dispatch({
-        type: ADD_TODO,
-        payload: todo
-    }));
+    });
 
+    const data = await res.json();
+    dispatch({
+        type: ADD_TODO,
+        payload: data
+    });
 };
 
-export const removeTodo = todoId => (dispatch, getState) => {
-
+export const removeTodo = todoId => async (dispatch, getState) => {
     const headers = headersConfig(getState);
 
-    fetch(`/api/todo/${todoId}`, {
+    await fetch(`/api/todo/${todoId}`, {
         method: 'DELETE',
         headers
-    })
-    .then(res => res.json())
-    .then(deleted => dispatch({
-        type: REMOVE_TODO,
-        payload: deleted
-    }));
+    });
 
+    dispatch({
+        type: REMOVE_TODO,
+        payload: todoId
+    });
 };
 
-export const toggleTodo = todo => (dispatch, getState) => {
-
+export const toggleTodo = todo => async (dispatch, getState) => {
     const headers = headersConfig(getState);
 
-    fetch(`/api/todo/${todo._id.toString()}`, {
+    const res = await fetch(`/api/todo/${todo.id}`, {
         method: 'PATCH',
         headers,
         body: JSON.stringify({ done: !todo.done })
-    })
-    .then(res => res.json())
-    .then(updated => dispatch({
+    });
+
+    const data = await res.json();
+    dispatch({
         type: TOGGLE_TODO,
-        payload: updated
-    }));
-    
+        payload: data
+    });
 };
 
 export const eraseTodos = () => ({ type: ERASE_TODOS });
-
-export const deleteTodos = userId => (dispatch, getState) => {
-
-    const headers = headersConfig(getState);
-
-    fetch(`/api/todo/deletemany/${userId}`, {
-        method: 'DELETE',
-        headers
-    })
-    .then(res => res.json())
-    .then(data => dispatch({ type: DELETE_TODOS }));
-
-};

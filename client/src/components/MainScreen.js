@@ -32,10 +32,6 @@ const MainScreen = () => {
         setNewTodo('');
     };
 
-    const toggleTodoStatus = todo => {
-        dispatch(toggleTodo(todo));
-    };
-
     useEffect(() => {
         window.addEventListener('click', handleClickOutsideForm);
         dispatch(fetchTodos());
@@ -51,12 +47,12 @@ const MainScreen = () => {
                         <div className={`todo ${todo.done && 'done'}`} key={idx}>
                             <div
                                 className='checkbox'
-                                onClick={() => toggleTodoStatus(todo)}
+                                onClick={() => dispatch(toggleTodo(todo))}
                             ></div>
                             <span className='text'>{todo.text}</span>
                             <span
                                 className='delete'
-                                onClick={() => dispatch(removeTodo(todo._id))}
+                                onClick={() => dispatch(removeTodo(todo.id))}
                             >&times;</span>
                         </div>
                     )) :
