@@ -13,9 +13,9 @@ class TodoService {
         const todoData = todo.toObject({
             versionKey: false,
             transform: (doc, ret) => {
-                delete ret.date;
                 delete ret.userId;
                 delete ret._id;
+                ret.date = +(new Date(ret.date));
                 ret.id = doc.id;
                 return ret;
             }
@@ -30,9 +30,9 @@ class TodoService {
         const todosData = todos.map(todo => todo.toObject({
             versionKey: false,
             transform: (doc, ret) => {
-                delete ret.date;
                 delete ret.userId;
                 delete ret._id;
+                ret.date = +(new Date(ret.date));
                 ret.id = doc.id;
                 return ret;
             }
@@ -51,9 +51,9 @@ class TodoService {
         const todoData = todo.toObject({
             versionKey: false,
             transform: (doc, ret) => {
-                delete ret.date;
                 delete ret.userId;
                 delete ret._id;
+                ret.date = +(new Date(ret.date));
                 ret.id = doc.id;
                 return ret;
             }
