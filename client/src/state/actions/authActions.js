@@ -12,17 +12,7 @@ import {
 } from "./types";
 import { getErrors, clearErrors } from "./errorActions";
 import { fetchTodos, eraseTodos } from "./todoActions";
-
-export const headersConfig = getState => {
-    const headers = {
-        "Content-Type": "application/json"
-    };
-    
-    const token = getState().auth.token;
-    if(token) headers['Authorization'] = `Bearer ${token}`;
-
-    return headers;
-};
+import headersConfig from "./utils/headersConfig";
 
 export const register = userData => async (dispatch, getState) => {
     const headers = headersConfig(getState);

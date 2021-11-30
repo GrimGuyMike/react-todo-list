@@ -4,10 +4,9 @@ import {
     REMOVE_TODO,
     TOGGLE_TODO,
     TODOS_LOADING,
-    ERASE_TODOS,
-    DELETE_TODOS
+    ERASE_TODOS
 } from "./types";
-import { headersConfig } from "./authActions";
+import headersConfig from "./utils/headersConfig";
 
 export const fetchTodos = () => async (dispatch, getState) => {
     dispatch({ type: TODOS_LOADING });
