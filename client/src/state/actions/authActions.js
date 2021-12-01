@@ -8,7 +8,8 @@ import {
     USER_LOADING,
     USER_LOADED,
     DELETE_USER_SUCCESS,
-    DELETE_USER_FAIL
+    DELETE_USER_FAIL,
+    LOGOUT_FAIL
 } from "./types";
 import { getErrors, clearErrors } from "./errorActions";
 import { fetchTodos, eraseTodos } from "./todoActions";
@@ -92,16 +93,10 @@ export const logIn = userData => async (dispatch, getState) => {
 export const logOut = () => async (dispatch, getState) => {
     const headers = headersConfig(getState);
 
-    const res = await fetch('/api/logout', {
+    await fetch('/api/logout', {
         method: 'POST',
         headers
     });
-
-    if(!res.ok) {
-        const data = await res.json();
-        dispatch(getErrors(data.message, res.status, 'LOGOUT_FAIL'));
-        return;
-    }
 
     dispatch(eraseTodos());
     dispatch({ type: LOGOUT_SUCCESS });

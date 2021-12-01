@@ -14,11 +14,9 @@ const initialState = {
 };
 
 const todoReducer = function(state=initialState, action){
-
     switch(action.type){
-
         default:
-            return state;
+            return { ...state };
 
         case TODOS_LOADING:
             return {
@@ -68,9 +66,7 @@ const todoReducer = function(state=initialState, action){
                 ...state,
                 todos: []
             };
-
     }
-
 };
 
 export default todoReducer;

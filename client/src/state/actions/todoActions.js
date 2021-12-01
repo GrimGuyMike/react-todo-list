@@ -4,9 +4,14 @@ import {
     REMOVE_TODO,
     TOGGLE_TODO,
     TODOS_LOADING,
-    ERASE_TODOS
+    ERASE_TODOS,
+    FETCH_TODOS_FAIL,
+    ADD_TODO_FAIL,
+    REMOVE_TODO_FAIL,
+    TOGGLE_TODO_FAIL
 } from "./types";
 import headersConfig from "./utils/headersConfig";
+import { getErrors } from "./errorActions";
 
 export const fetchTodos = () => async (dispatch, getState) => {
     dispatch({ type: TODOS_LOADING });
@@ -17,6 +22,12 @@ export const fetchTodos = () => async (dispatch, getState) => {
         method: 'GET',
         headers
     });
+
+    if(!res.ok) {
+        const data = await res.json();
+        dispatch(getErrors(data.message, res.status, FETCH_TODOS_FAIL));
+        return;
+    }
 
     const data = await res.json();
     dispatch({
@@ -36,6 +47,12 @@ export const addTodo = text => async (dispatch, getState) => {
         })
     });
 
+    if(!res.ok) {
+        const data = await res.json();
+        dispatch(getErrors(data.message, res.status, ADD_TODO_FAIL));
+        return;
+    }
+
     const data = await res.json();
     dispatch({
         type: ADD_TODO,
@@ -46,10 +63,16 @@ export const addTodo = text => async (dispatch, getState) => {
 export const removeTodo = todoId => async (dispatch, getState) => {
     const headers = headersConfig(getState);
 
-    await fetch(`/api/todo/${todoId}`, {
+    const res = await fetch(`/api/todo/${todoId}`, {
         method: 'DELETE',
         headers
     });
+
+    if(!res.ok) {
+        const data = await res.json();
+        dispatch(getErrors(data.message, res.status, REMOVE_TODO_FAIL));
+        return;
+    }
 
     dispatch({
         type: REMOVE_TODO,
@@ -65,6 +88,12 @@ export const toggleTodo = todo => async (dispatch, getState) => {
         headers,
         body: JSON.stringify({ done: !todo.done })
     });
+
+    if(!res.ok) {
+        const data = await res.json();
+        dispatch(getErrors(data.message, res.status, TOGGLE_TODO_FAIL));
+        return;
+    }
 
     const data = await res.json();
     dispatch({

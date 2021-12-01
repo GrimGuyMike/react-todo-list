@@ -1,9 +1,12 @@
 export const FETCH_TODOS = 'FETCH_TODOS';
+export const FETCH_TODOS_FAIL = 'FETCH_TODOS_FAIL';
 export const TODOS_LOADING = 'TODOS_LOADING';
 export const ADD_TODO = 'ADD_TODO';
+export const ADD_TODO_FAIL = 'ADD_TODO_FAIL';
 export const REMOVE_TODO = 'REMOVE_TODO';
-export const DELETE_TODOS = 'DELETE_TODOS';
+export const REMOVE_TODO_FAIL = 'REMOVE_TODO_FAIL';
 export const TOGGLE_TODO = 'TOGGLE_TODO';
+export const TOGGLE_TODO_FAIL = 'TOGGLE_TODO_FAIL';
 export const ERASE_TODOS = 'ERASE_TODOS';
 
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';

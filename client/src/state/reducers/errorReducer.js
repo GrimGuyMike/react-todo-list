@@ -7,11 +7,9 @@ const initialState = {
 };
 
 export default function errorReducer(state=initialState, action) {
-
     switch(action.type) {
-
         default:
-            return state;
+            return { ...state };
 
         case GET_ERRORS:
             return {
@@ -22,7 +20,5 @@ export default function errorReducer(state=initialState, action) {
         
         case CLEAR_ERRORS:
             return initialState;
-
     }
-
 };
