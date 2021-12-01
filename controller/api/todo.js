@@ -27,7 +27,6 @@ class TodoController {
             const userId = req.user.id;
             const todoId = req.params.id;
             const done = req.body.done;
-            console.log(done);
             const todoData = await todoService.update(userId, todoId, done);
             res.json(todoData);
         } catch(err) {

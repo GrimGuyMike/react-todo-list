@@ -45,7 +45,6 @@ class TodoService {
         if(typeof done !== 'boolean') throw ApiError.BadRequest('insufficient data');
 
         const todo = await Todo.findOneAndUpdate({ _id: todoId }, { done }, { new: true });
-        console.log(todo.userId, userId);
         if(todo.userId !== userId) throw ApiError.Forbidden('entry can only be modified by its creator');
 
         const todoData = todo.toObject({
