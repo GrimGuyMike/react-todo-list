@@ -9,7 +9,6 @@ import {
     USER_LOADED,
     DELETE_USER_SUCCESS,
     DELETE_USER_FAIL,
-    LOGOUT_FAIL
 } from "./types";
 import { getErrors, clearErrors } from "./errorActions";
 import { fetchTodos, eraseTodos } from "./todoActions";
@@ -52,7 +51,7 @@ export const loadUser = () => async (dispatch, getState) => {
 
     if(!res.ok) {
         const data = await res.json();
-        dispatch(getErrors(data.mesage, res.status, AUTH_ERROR));
+        dispatch(getErrors(data.message, res.status, AUTH_ERROR));
         dispatch({ type: AUTH_ERROR });
         return;
     }

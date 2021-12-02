@@ -12,11 +12,7 @@ export default function errorReducer(state=initialState, action) {
             return { ...state };
 
         case GET_ERRORS:
-            return {
-                message: action.payload.message,
-                status: action.payload.status,
-                id: action.payload.id
-            };
+            return { ...action.payload };
         
         case CLEAR_ERRORS:
             return initialState;
