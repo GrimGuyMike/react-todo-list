@@ -85,6 +85,7 @@ class AuthService {
 
         const access = tokenService.generateAccess({ id: userId });
         const refresh = tokenService.generateRefresh({ id: userId });
+        await tokenService.saveRefresh(userId, refresh.token);
 
         return { access, refresh };
     };
