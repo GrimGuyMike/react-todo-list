@@ -6,7 +6,7 @@ import {
     TODOS_LOADING,
     ERASE_TODOS
 } from "../actions/types";
-import sortTodos from "./utils/sortTodos";
+import sortTodos from "../utils/sortTodos";
 
 const initialState = {
     todos: [],

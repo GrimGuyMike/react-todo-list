@@ -9,10 +9,12 @@ import {
     USER_LOADED,
     DELETE_USER_SUCCESS,
     DELETE_USER_FAIL,
+    REFRESH_FAIL,
+    REFRESH_SUCCESS,
 } from "./types";
 import { getErrors, clearErrors } from "./errorActions";
 import { fetchTodos, eraseTodos } from "./todoActions";
-import headersConfig from "./utils/headersConfig";
+import headersConfig from "../utils/headersConfig";
 
 export const register = userData => async (dispatch, getState) => {
     const headers = headersConfig(getState);
@@ -118,4 +120,26 @@ export const deleteUser = () => async (dispatch, getState) => {
 
     dispatch(eraseTodos());
     dispatch({ type: DELETE_USER_SUCCESS });
+};
+
+export const refresh = () => async (dispatch, getState) => {
+    const headers = headersConfig(getState);
+
+    const res = await fetch('/api/refresh', {
+        method: 'POST',
+        headers
+    });
+
+    if(!res.ok) {
+        const data = await res.json();
+        dispatch(getErrors(data.message, res.status, REFRESH_FAIL));
+        dispatch({ type: REFRESH_FAIL });
+        return;
+    }
+
+    const data = await res.json();
+    dispatch({
+        type: REFRESH_SUCCESS,
+        payload: data
+    });
 };

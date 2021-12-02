@@ -7,7 +7,9 @@ import {
     AUTH_ERROR,
     USER_LOADING,
     USER_LOADED,
-    DELETE_USER_SUCCESS
+    DELETE_USER_SUCCESS,
+    REFRESH_FAIL,
+    REFRESH_SUCCESS
 } from "../actions/types";
 
 const initialState = {
@@ -44,7 +46,8 @@ export default function authReducer(state=initialState, action) {
         case LOGIN_FAIL:
         case AUTH_ERROR:
         case DELETE_USER_SUCCESS:
-        case LOGOUT_SUCCESS: {
+        case LOGOUT_SUCCESS:
+        case REFRESH_FAIL: {
             localStorage.removeItem('token');
             return {
                 token: null,
@@ -68,5 +71,13 @@ export default function authReducer(state=initialState, action) {
                 }
             };
         };
+
+        case REFRESH_SUCCESS: {
+            localStorage.setItem('token', action.payload.token);
+            return {
+                ...state,
+                token: action.payload.token
+            };
+        }
     }
 };

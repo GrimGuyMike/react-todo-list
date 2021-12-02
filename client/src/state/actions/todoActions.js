@@ -10,7 +10,7 @@ import {
     REMOVE_TODO_FAIL,
     TOGGLE_TODO_FAIL
 } from "./types";
-import headersConfig from "./utils/headersConfig";
+import headersConfig from "../utils/headersConfig";
 import { getErrors } from "./errorActions";
 
 export const fetchTodos = () => async (dispatch, getState) => {
