@@ -1,16 +1,4 @@
-import {
-    REGISTER_SUCCESS,
-    REGISTER_FAIL,
-    LOGIN_SUCCESS,
-    LOGIN_FAIL,
-    LOGOUT_SUCCESS,
-    AUTH_ERROR,
-    USER_LOADING,
-    USER_LOADED,
-    DELETE_USER_SUCCESS,
-    REFRESH_FAIL,
-    REFRESH_SUCCESS
-} from "../actions/types";
+import { AUTH } from "../actions/types";
 
 const initialState = {
     token: localStorage.getItem('token'),
@@ -24,13 +12,13 @@ export default function authReducer(state=initialState, action) {
         default:
             return { ...state };
 
-        case USER_LOADING:
+        case AUTH.USER_LOADING:
             return {
                 ...state,
                 loading: true
             };
 
-        case USER_LOADED:
+        case AUTH.LOAD_USER:
             return {
                 ...state,
                 loading: false,
@@ -42,12 +30,12 @@ export default function authReducer(state=initialState, action) {
                 }
             };
 
-        case REGISTER_FAIL:
-        case LOGIN_FAIL:
-        case AUTH_ERROR:
-        case DELETE_USER_SUCCESS:
-        case LOGOUT_SUCCESS:
-        case REFRESH_FAIL: {
+        case AUTH.REGISTER_FAIL:
+        case AUTH.LOGIN_FAIL:
+        case AUTH.LOAD_USER_FAIL:
+        case AUTH.DELETE_USER:
+        case AUTH.LOGOUT:
+        case AUTH.REFRESH_FAIL: {
             localStorage.removeItem('token');
             return {
                 token: null,
@@ -57,8 +45,8 @@ export default function authReducer(state=initialState, action) {
             };
         };
 
-        case REGISTER_SUCCESS:
-        case LOGIN_SUCCESS: {
+        case AUTH.REGISTER:
+        case AUTH.LOGIN: {
             localStorage.setItem('token', action.payload.access.token);
             return {
                 token: action.payload.access.token,
@@ -72,7 +60,7 @@ export default function authReducer(state=initialState, action) {
             };
         };
 
-        case REFRESH_SUCCESS: {
+        case AUTH.REFRESH: {
             localStorage.setItem('token', action.payload.token);
             return {
                 ...state,

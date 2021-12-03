@@ -1,20 +1,9 @@
-import {
-    FETCH_TODOS,
-    ADD_TODO,
-    REMOVE_TODO,
-    TOGGLE_TODO,
-    TODOS_LOADING,
-    ERASE_TODOS,
-    FETCH_TODOS_FAIL,
-    ADD_TODO_FAIL,
-    REMOVE_TODO_FAIL,
-    TOGGLE_TODO_FAIL
-} from "./types";
+import { TODOS } from "./types";
 import headersConfig from "../utils/headersConfig";
 import { getErrors } from "./errorActions";
 
 export const fetchTodos = () => async (dispatch, getState) => {
-    dispatch({ type: TODOS_LOADING });
+    dispatch({ type: TODOS.LOADING });
 
     const headers = headersConfig(getState);
 
@@ -25,13 +14,13 @@ export const fetchTodos = () => async (dispatch, getState) => {
 
     if(!res.ok) {
         const data = await res.json();
-        dispatch(getErrors(data.message, res.status, FETCH_TODOS_FAIL));
+        dispatch(getErrors(data.message, res.status, TODOS.FETCH_FAIL));
         return;
     }
 
     const data = await res.json();
     dispatch({
-        type: FETCH_TODOS,
+        type: TODOS.FETCH,
         payload: data
     });
 };
@@ -49,13 +38,13 @@ export const addTodo = text => async (dispatch, getState) => {
 
     if(!res.ok) {
         const data = await res.json();
-        dispatch(getErrors(data.message, res.status, ADD_TODO_FAIL));
+        dispatch(getErrors(data.message, res.status, TODOS.ADD_FAIL));
         return;
     }
 
     const data = await res.json();
     dispatch({
-        type: ADD_TODO,
+        type: TODOS.ADD,
         payload: data
     });
 };
@@ -70,12 +59,12 @@ export const removeTodo = todoId => async (dispatch, getState) => {
 
     if(!res.ok) {
         const data = await res.json();
-        dispatch(getErrors(data.message, res.status, REMOVE_TODO_FAIL));
+        dispatch(getErrors(data.message, res.status, TODOS.REMOVE_FAIL));
         return;
     }
 
     dispatch({
-        type: REMOVE_TODO,
+        type: TODOS.REMOVE,
         payload: todoId
     });
 };
@@ -91,15 +80,15 @@ export const toggleTodo = todo => async (dispatch, getState) => {
 
     if(!res.ok) {
         const data = await res.json();
-        dispatch(getErrors(data.message, res.status, TOGGLE_TODO_FAIL));
+        dispatch(getErrors(data.message, res.status, TODOS.TOGGLE_FAIL));
         return;
     }
 
     const data = await res.json();
     dispatch({
-        type: TOGGLE_TODO,
+        type: TODOS.TOGGLE,
         payload: data
     });
 };
 
-export const eraseTodos = () => ({ type: ERASE_TODOS });
+export const eraseTodos = () => ({ type: TODOS.ERASE });

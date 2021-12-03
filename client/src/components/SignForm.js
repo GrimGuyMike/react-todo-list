@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn, register } from "../state/actions/authActions";
 import { clearErrors } from "../state/actions/errorActions";
-import { LOGIN_FAIL, REGISTER_FAIL } from "../state/actions/types";
+import { AUTH } from "../state/actions/types";
 
 const SignForm = () => {
 
@@ -67,8 +67,8 @@ const SignForm = () => {
         switch(error.id) {
             default:
                 return;
-            case REGISTER_FAIL:
-            case LOGIN_FAIL:
+            case AUTH.REGISTER_FAIL:
+            case AUTH.LOGIN_FAIL:
                 return (
                     <div className="error">
                         {error.message}

@@ -1,4 +1,4 @@
-import { GET_ERRORS, CLEAR_ERRORS } from "./types";
+import { ERROR } from "./types";
 
 export const getErrors = (message, status, id=null) => dispatch => {
     const error = {
@@ -8,9 +8,9 @@ export const getErrors = (message, status, id=null) => dispatch => {
     };
 
     dispatch({
-        type: GET_ERRORS,
+        type: ERROR.GET,
         payload: error
     });
 };
 
-export const clearErrors = () => ({ type: CLEAR_ERRORS });
+export const clearErrors = () => ({ type: ERROR.CLEAR });

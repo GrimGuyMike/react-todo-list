@@ -1,4 +1,4 @@
-import { GET_ERRORS, CLEAR_ERRORS } from "../actions/types";
+import { ERROR } from "../actions/types";
 
 const initialState = {
     message: '',
@@ -11,10 +11,10 @@ export default function errorReducer(state=initialState, action) {
         default:
             return { ...state };
 
-        case GET_ERRORS:
+        case ERROR.GET:
             return { ...action.payload };
         
-        case CLEAR_ERRORS:
+        case ERROR.CLEAR:
             return initialState;
     }
 };

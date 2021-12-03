@@ -1,11 +1,4 @@
-import {
-    FETCH_TODOS,
-    ADD_TODO,
-    REMOVE_TODO,
-    TOGGLE_TODO,
-    TODOS_LOADING,
-    ERASE_TODOS
-} from "../actions/types";
+import { TODOS } from "../actions/types";
 import sortTodos from "../utils/sortTodos";
 
 const initialState = {
@@ -18,20 +11,20 @@ const todoReducer = function(state=initialState, action){
         default:
             return { ...state };
 
-        case TODOS_LOADING:
+        case TODOS.LOADING:
             return {
                 ...state,
                 loading: true
             };
 
-        case FETCH_TODOS: {
+        case TODOS.FETCH: {
             return {
                 todos: sortTodos(action.payload),
                 loading: false
             };
         }
 
-        case ADD_TODO: {
+        case TODOS.ADD: {
             state.todos.push(action.payload);
 
             return {
@@ -40,14 +33,14 @@ const todoReducer = function(state=initialState, action){
             };
         };
 
-        case REMOVE_TODO: {
+        case TODOS.REMOVE: {
             const removedId = action.payload;
             state.todos = state.todos.filter(todo => todo.id !== removedId);
 
             return { ...state };
         };
 
-        case TOGGLE_TODO: {
+        case TODOS.TOGGLE: {
             const toggleId = action.payload.id;
             state.todos = state.todos.map(todo => (
                 todo.id === toggleId ?
@@ -61,7 +54,7 @@ const todoReducer = function(state=initialState, action){
             };
         };
 
-        case ERASE_TODOS:
+        case TODOS.ERASE:
             return {
                 ...state,
                 todos: []

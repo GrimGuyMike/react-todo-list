@@ -1,17 +1,4 @@
-import {
-    REGISTER_SUCCESS,
-    REGISTER_FAIL,
-    LOGIN_SUCCESS,
-    LOGIN_FAIL,
-    LOGOUT_SUCCESS,
-    AUTH_ERROR,
-    USER_LOADING,
-    USER_LOADED,
-    DELETE_USER_SUCCESS,
-    DELETE_USER_FAIL,
-    REFRESH_FAIL,
-    REFRESH_SUCCESS,
-} from "./types";
+import { AUTH } from "./types";
 import { getErrors, clearErrors } from "./errorActions";
 import { fetchTodos, eraseTodos } from "./todoActions";
 import headersConfig from "../utils/headersConfig";
@@ -28,21 +15,21 @@ export const register = userData => async (dispatch, getState) => {
 
     if(!res.ok) {
         const data = await res.json();
-        dispatch(getErrors(data.message, res.status, REGISTER_FAIL));
-        dispatch({ type: REGISTER_FAIL });
+        dispatch(getErrors(data.message, res.status, AUTH.REGISTER_FAIL));
+        dispatch({ type: AUTH.REGISTER_FAIL });
         return;
     }
 
     const data = await res.json();
     dispatch({
-        type: REGISTER_SUCCESS,
+        type: AUTH.REGISTER,
         payload: data
     });
     dispatch(clearErrors());
 };
 
 export const loadUser = () => async (dispatch, getState) => {
-    dispatch({ type: USER_LOADING });
+    dispatch({ type: AUTH.USER_LOADING });
 
     const headers = headersConfig(getState);
 
@@ -53,14 +40,14 @@ export const loadUser = () => async (dispatch, getState) => {
 
     if(!res.ok) {
         const data = await res.json();
-        dispatch(getErrors(data.message, res.status, AUTH_ERROR));
-        dispatch({ type: AUTH_ERROR });
+        dispatch(getErrors(data.message, res.status, AUTH.LOAD_USER_FAIL));
+        dispatch({ type: AUTH.LOAD_USER_FAIL });
         return;
     }
 
     const data = await res.json();
     dispatch({
-        type: USER_LOADED,
+        type: AUTH.LOAD_USER,
         payload: data
     });
 };
@@ -77,14 +64,14 @@ export const logIn = userData => async (dispatch, getState) => {
 
     if(!res.ok) {
         const data = await res.json();
-        dispatch(getErrors(data.message, res.status, LOGIN_FAIL));
-        dispatch({ type: LOGIN_FAIL });
+        dispatch(getErrors(data.message, res.status, AUTH.LOGIN_FAIL));
+        dispatch({ type: AUTH.LOGIN_FAIL });
         return;
     }
 
     const data = await res.json();
     dispatch({
-        type: LOGIN_SUCCESS,
+        type: AUTH.LOGIN,
         payload: data
     });
     dispatch(fetchTodos());
@@ -100,7 +87,7 @@ export const logOut = () => async (dispatch, getState) => {
     });
 
     dispatch(eraseTodos());
-    dispatch({ type: LOGOUT_SUCCESS });
+    dispatch({ type: AUTH.LOGOUT });
 };
 
 export const deleteUser = () => async (dispatch, getState) => {
@@ -113,13 +100,13 @@ export const deleteUser = () => async (dispatch, getState) => {
 
     if(!res.ok) {
         const data = await res.json();
-        dispatch(getErrors(data.message, res.status, DELETE_USER_FAIL));
-        dispatch({ type: DELETE_USER_FAIL });
+        dispatch(getErrors(data.message, res.status, AUTH.DELETE_USER_FAIL));
+        dispatch({ type: AUTH.DELETE_USER_FAIL });
         return;
     }
 
     dispatch(eraseTodos());
-    dispatch({ type: DELETE_USER_SUCCESS });
+    dispatch({ type: AUTH.DELETE_USER });
 };
 
 export const refresh = () => async (dispatch, getState) => {
@@ -132,14 +119,14 @@ export const refresh = () => async (dispatch, getState) => {
 
     if(!res.ok) {
         const data = await res.json();
-        dispatch(getErrors(data.message, res.status, REFRESH_FAIL));
-        dispatch({ type: REFRESH_FAIL });
+        dispatch(getErrors(data.message, res.status, AUTH.REFRESH_FAIL));
+        dispatch({ type: AUTH.REFRESH_FAIL });
         return;
     }
 
     const data = await res.json();
     dispatch({
-        type: REFRESH_SUCCESS,
+        type: AUTH.REFRESH,
         payload: data
     });
 };
