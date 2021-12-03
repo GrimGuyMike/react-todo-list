@@ -2,7 +2,7 @@ import { ERROR } from "./types";
 
 export const getErrors = (message, status, id=null) => dispatch => {
     const error = {
-        message: message || 'No description',
+        message: message || 'no description',
         status,
         id
     };

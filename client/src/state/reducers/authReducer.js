@@ -61,10 +61,10 @@ export default function authReducer(state=initialState, action) {
         };
 
         case AUTH.REFRESH: {
-            localStorage.setItem('token', action.payload.token);
+            localStorage.setItem('token', action.payload);
             return {
                 ...state,
-                token: action.payload.token
+                token: action.payload
             };
         }
     }

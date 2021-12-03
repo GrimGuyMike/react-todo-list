@@ -1,65 +1,42 @@
 import { TODOS } from "./types";
-import headersConfig from "../utils/headersConfig";
 import { getErrors } from "./errorActions";
+import todoService from '../services/todo';
 
-export const fetchTodos = () => async (dispatch, getState) => {
+export const fetchTodos = () => async dispatch => {
     dispatch({ type: TODOS.LOADING });
 
-    const headers = headersConfig(getState);
-
-    const res = await fetch("/api/todo", {
-        method: 'GET',
-        headers
-    });
+    const res = await todoService.fetch();
 
     if(!res.ok) {
-        const data = await res.json();
-        dispatch(getErrors(data.message, res.status, TODOS.FETCH_FAIL));
+        dispatch(getErrors(res.data.message, res.status, TODOS.FETCH_FAIL));
         return;
     }
 
-    const data = await res.json();
     dispatch({
         type: TODOS.FETCH,
-        payload: data
+        payload: res.data
     });
 };
 
-export const addTodo = text => async (dispatch, getState) => {
-    const headers = headersConfig(getState);
-
-    const res = await fetch("/api/todo", {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-            text
-        })
-    });
+export const addTodo = text => async dispatch => {
+    const res = await todoService.add({ text });
 
     if(!res.ok) {
-        const data = await res.json();
-        dispatch(getErrors(data.message, res.status, TODOS.ADD_FAIL));
+        dispatch(getErrors(res.data.message, res.status, TODOS.ADD_FAIL));
         return;
     }
 
-    const data = await res.json();
     dispatch({
         type: TODOS.ADD,
-        payload: data
+        payload: res.data
     });
 };
 
-export const removeTodo = todoId => async (dispatch, getState) => {
-    const headers = headersConfig(getState);
-
-    const res = await fetch(`/api/todo/${todoId}`, {
-        method: 'DELETE',
-        headers
-    });
+export const removeTodo = todoId => async dispatch => {
+    const res = await todoService.remove(todoId);
 
     if(!res.ok) {
-        const data = await res.json();
-        dispatch(getErrors(data.message, res.status, TODOS.REMOVE_FAIL));
+        dispatch(getErrors(res.data.message, res.status, TODOS.REMOVE_FAIL));
         return;
     }
 
@@ -69,25 +46,17 @@ export const removeTodo = todoId => async (dispatch, getState) => {
     });
 };
 
-export const toggleTodo = todo => async (dispatch, getState) => {
-    const headers = headersConfig(getState);
-
-    const res = await fetch(`/api/todo/${todo.id}`, {
-        method: 'PATCH',
-        headers,
-        body: JSON.stringify({ done: !todo.done })
-    });
+export const toggleTodo = todo => async dispatch => {
+    const res = await todoService.toggle(todo.id, { done: !todo.done });
 
     if(!res.ok) {
-        const data = await res.json();
-        dispatch(getErrors(data.message, res.status, TODOS.TOGGLE_FAIL));
+        dispatch(getErrors(res.data.message, res.status, TODOS.TOGGLE_FAIL));
         return;
     }
 
-    const data = await res.json();
     dispatch({
         type: TODOS.TOGGLE,
-        payload: data
+        payload: res.data
     });
 };
 
