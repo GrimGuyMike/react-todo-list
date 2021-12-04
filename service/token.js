@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { RefreshToken } = require('../database');
+const RefreshToken = require('../model/RefreshToken');
 const { ApiError } = require('../exception');
 
 class TokenService {

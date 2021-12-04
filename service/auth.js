@@ -1,5 +1,6 @@
 const { ApiError } = require('../exception');
-const { User, Todo, RefreshToken } = require('../database');
+const User = require('../model/User');
+const RefreshToken = require('../model/RefreshToken');
 const validate = require('./validation');
 const bcrypt = require('bcrypt');
 const tokenService = require('../service/token');

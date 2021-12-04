@@ -1,4 +1,4 @@
-const { User } = require('../database');
+const User = require('../model/User');
 const authService = require('./auth');
 const todoService = require('./todo');
 
