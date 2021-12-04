@@ -1,9 +1,12 @@
 const Todo = require('../model/Todo');
 const { ApiError } = require('../exception');
+const validate = require('../service/validation');
 
 class TodoService {
     async create(userId, text) {
         if(!text) throw ApiError.BadRequest('insufficient data');
+
+        validate.todoText(text);
 
         const todo = await Todo.create({
             userId,

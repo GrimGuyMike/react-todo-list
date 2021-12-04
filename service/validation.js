@@ -15,6 +15,10 @@ class ValidationService {
         const regExp = /^([a-zA-Z0-9@*#]{8,20})$/;
         if(!regExp.test(password)) throw ApiError.BadRequest('invalid password');
     };
+
+    todoText(text) {
+        if(text.startsWith(' ')) throw ApiError.BadRequest('todo text must not start with whitespace');
+    }
 };
 
 module.exports = new ValidationService();
