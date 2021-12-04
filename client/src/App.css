@@ -79,6 +79,31 @@ header {
 }
 
 /*\
+|*|     ERROR
+\*/
+
+.App > .error {
+    background-color: var(--color-info-error);
+    padding: var(--spacing-s);
+    border-radius: var(--spacing-s);
+    position: absolute;
+    left: var(--spacing-m);
+    top: calc(var(--spacing-l) + 100px);
+    display: flex;
+    align-items: center;
+    text-align: center;
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.App > .error > .dismiss {
+    cursor: pointer;
+    font-size: 1.5rem;
+    margin-left: .5rem;
+    user-select: none;
+}
+
+/*\
 |*|     CONTENT
 \*/
 
@@ -155,15 +180,6 @@ header {
     height: 20px;
     border-radius: var(--radius-s);
     border: none;
-}
-
-#sign-form > form.active > .error {
-    height: 25px;
-    background-color: var(--color-info-error);
-    border-radius: var(--radius-s);
-    align-items: center;
-    justify-content: center;
-    user-select: none;
 }
 
 #sign-form > form.active > input[type='submit'] {

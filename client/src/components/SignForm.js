@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn, register } from "../state/actions/authActions";
 import { clearErrors } from "../state/actions/errorActions";
-import { AUTH } from "../state/actions/types";
 
 const SignForm = () => {
 
@@ -63,20 +62,6 @@ const SignForm = () => {
         }
     };
 
-    const displayError = () => {
-        switch(error.id) {
-            default:
-                return;
-            case AUTH.REGISTER_FAIL:
-            case AUTH.LOGIN_FAIL:
-                return (
-                    <div className="error">
-                        {error.message}
-                    </div>
-                );
-        }
-    };
-
     return (
         <div id='sign-form'>
             <div className="btns">
@@ -91,8 +76,6 @@ const SignForm = () => {
             </div>
 
             <form className="in active" onSubmit={onSubmit}>
-                {displayError()}
-
                 <div>
                     <label htmlFor="email">E-mail:</label>
                     <input
@@ -117,8 +100,6 @@ const SignForm = () => {
             </form>
 
             <form className="up" onSubmit={onSubmit}>
-                {displayError()}
-
                 <div>
                     <label htmlFor="name">User name:</label>
                     <input
