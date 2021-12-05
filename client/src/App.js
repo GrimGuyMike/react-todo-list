@@ -7,11 +7,12 @@ import MainScreen from "./components/MainScreen/";
 import AuthScreen from './components/AuthScreen/';
 import { loadUser } from "./state/actions/authActions";
 import { AUTH } from "./state/actions/types";
+import StatusMessage from "./components/StatusMessage";
 
 function App() {
   const dispatch = useDispatch();
 
-  const authenticated = useSelector(state => state.auth.isAuthenticated);
+  const {loading, isAuthenticated} = useSelector(state => state.auth);
   const error = useSelector(state => state.error);
 
   const displayError = () => {
@@ -32,12 +33,20 @@ function App() {
 
   return (
     <div className='App'>
-      <Header authenticated={authenticated} />
+      <Header authenticated={isAuthenticated} />
 
       {displayError()}
 
       <div id="content">
-        {authenticated ? <MainScreen /> : <AuthScreen />}
+        {
+          loading ?
+          <StatusMessage text='Loading...'/> :
+          (
+            isAuthenticated ?
+            <MainScreen /> :
+            <AuthScreen />
+          )
+        }
       </div>
     </div>
   );

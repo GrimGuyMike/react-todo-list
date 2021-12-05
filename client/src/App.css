@@ -114,6 +114,17 @@ header {
     margin: 0 auto;
 }
 
+/* STATUS MESSAGE */
+
+.App .status-msg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: normal;
+    user-select: none;
+}
+
 /*      SIGN FORM       */
 
 #sign-form {
@@ -299,17 +310,6 @@ header {
     color: var(--color-info-ok);
     text-align: center;
     font-size: 20px;
-}
-
-/* EMPTY LIST MESSAGE */
-
-#main-screen > .todos > .empty-msg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-weight: normal;
-    user-select: none;
 }
 
 /* SCROLLBAR */
