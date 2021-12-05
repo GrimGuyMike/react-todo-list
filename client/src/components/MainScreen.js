@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo, fetchTodos, removeTodo, toggleTodo } from "../state/actions/todoActions";
+import { clearErrors } from "../state/actions/errorActions";
+import { addTodo, eraseTodos, fetchTodos, removeTodo, toggleTodo } from "../state/actions/todoActions";
 
 const MainScreen = () => {
-
     const dispatch = useDispatch();
 
     const todos = useSelector(state => state.todos.todos);
@@ -14,16 +14,18 @@ const MainScreen = () => {
     const formRef = useRef(null);
     const formInputRef = useRef(null);
 
-    const handleClickOutsideForm = e => {
-        if(!formRef.current.contains(e.target)) setFormOpen(false);
-    };
-
     const toggleForm = () => {
         if(!formOpen) {
             setNewTodo('');
+            setFormOpen(true);
             formInputRef.current.focus();
+            return;
         }
-        setFormOpen(!formOpen);
+        setFormOpen(false);
+    };
+
+    const handleClickOutsideForm = e => {
+        if(!formRef.current.contains(e.target)) setFormOpen(false);
     };
 
     const onSubmit = e => {
@@ -34,8 +36,14 @@ const MainScreen = () => {
 
     useEffect(() => {
         window.addEventListener('click', handleClickOutsideForm);
+        dispatch(clearErrors());
         dispatch(fetchTodos());
-        return () => window.removeEventListener('click', handleClickOutsideForm);
+
+        return () => {
+            window.removeEventListener('click', handleClickOutsideForm);
+            dispatch(eraseTodos());
+            dispatch(clearErrors());
+        };
     }, []);
 
     return (
@@ -75,7 +83,6 @@ const MainScreen = () => {
             </form>
         </div>
     );
-
 };
 
 export default MainScreen;

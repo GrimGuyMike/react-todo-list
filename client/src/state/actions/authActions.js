@@ -1,6 +1,6 @@
 import { AUTH } from "./types";
-import { getErrors, clearErrors } from "./errorActions";
-import { fetchTodos, eraseTodos } from "./todoActions";
+import { getErrors } from "./errorActions";
+import { fetchTodos } from "./todoActions";
 import authService from '../services/auth';
 
 export const register = userData => async dispatch => {
@@ -16,7 +16,6 @@ export const register = userData => async dispatch => {
         type: AUTH.REGISTER,
         payload: res.data
     });
-    dispatch(clearErrors());
 };
 
 export const loadUser = () => async dispatch => {
@@ -50,13 +49,11 @@ export const logIn = userData => async dispatch => {
         payload: res.data
     });
     dispatch(fetchTodos());
-    dispatch(clearErrors());
 };
 
 export const logOut = () => async dispatch => {
     await authService.logout();
 
-    dispatch(eraseTodos());
     dispatch({ type: AUTH.LOGOUT });
 };
 
@@ -69,7 +66,6 @@ export const deleteUser = () => async dispatch => {
         return;
     }
 
-    dispatch(eraseTodos());
     dispatch({ type: AUTH.DELETE_USER });
 };
 

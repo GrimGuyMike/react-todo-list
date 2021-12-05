@@ -9,7 +9,6 @@ import { loadUser } from "./state/actions/authActions";
 import { AUTH } from "./state/actions/types";
 
 function App() {
-
   const dispatch = useDispatch();
 
   const authenticated = useSelector(state => state.auth.isAuthenticated);
@@ -33,7 +32,7 @@ function App() {
 
   return (
     <div className='App'>
-      <Header />
+      <Header authenticated={authenticated} />
 
       {displayError()}
 
@@ -42,7 +41,6 @@ function App() {
       </div>
     </div>
   );
-
 };
 
 export default App;

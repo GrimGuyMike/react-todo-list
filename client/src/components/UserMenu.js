@@ -3,11 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, logOut } from "../state/actions/authActions";
 
 const UserMenu = () => {
-
     const dispatch = useDispatch();
 
-    const id = useSelector(state => state.auth.user?.id);
-    const name = useSelector(state => state.auth.user?.name);
+    const user = useSelector(state => state.auth.user);
 
     const [open, setOpen] = useState(false);
     const ref = useRef(null);
@@ -21,35 +19,24 @@ const UserMenu = () => {
         return () => window.removeEventListener('click', handleClickOutside);
     }, []);
 
-    const toggleMenu = () => setOpen(open => !open);
-    const doLogOut = e => {
-        e.stopPropagation();
-        dispatch(logOut());
-    };
-    const doDelete = e => {
-        e.stopPropagation();
-        dispatch(deleteUser(id));
-    };
-
     return (
         <div id='user-menu' className={open ? 'open' : null} ref={ref}>
             <div
                 className="name"
-                onClick={toggleMenu}
-            >{name && name}</div>
+                onClick={() => setOpen(open => !open)}
+            >{user.name}</div>
 
             <div
                 className="log-out"
-                onClick={doLogOut}
+                onClick={() => dispatch(logOut())}
             >Log Out</div>
 
             <div
                 className="delete"
-                onClick={doDelete}
+                onClick={() => dispatch(deleteUser(user.id))}
             >Delete User</div>
         </div>
     );
-
 }
 
 export default UserMenu;

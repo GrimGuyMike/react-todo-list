@@ -1,13 +1,10 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { logIn, register } from "../state/actions/authActions";
 import { clearErrors } from "../state/actions/errorActions";
 
 const SignForm = () => {
-
     const dispatch = useDispatch();
-
-    const error = useSelector(state => state.error);
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -134,7 +131,6 @@ const SignForm = () => {
             </form>
         </div>
     );
-
 };
 
 export default SignForm;
