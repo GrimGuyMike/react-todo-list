@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { clearErrors } from "../state/actions/errorActions";
-import { eraseTodos } from "../state/actions/todoActions";
+import { clearErrors } from "../../state/actions/errorActions";
+import { eraseTodos } from "../../state/actions/todoActions";
 import TodoForm from "./TodoForm";
 import Todos from "./Todos";
 

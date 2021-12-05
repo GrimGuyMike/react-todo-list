@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import ErrorMessage from "./components/ErrorMessage";
-import Header from "./components/Header";
-import MainScreen from "./components/MainScreen";
-import AuthScreen from './components/AuthScreen';
+import Header from "./components/Header/";
+import MainScreen from "./components/MainScreen/";
+import AuthScreen from './components/AuthScreen/';
 import { loadUser } from "./state/actions/authActions";
 import { AUTH } from "./state/actions/types";
 

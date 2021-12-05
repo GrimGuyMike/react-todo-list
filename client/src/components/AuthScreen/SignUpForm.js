@@ -1,13 +1,14 @@
 import { useDispatch } from "react-redux";
-import { logIn } from "../state/actions/authActions";
+import { register } from "../../state/actions/authActions";
 
-const SignInForm = ({ email, setEmail, password, setPassword }) => {
+const SignUpForm = ({ name, setName, email, setEmail, password, setPassword }) => {
     const dispatch = useDispatch();
 
     const onSubmit = e => {
         e.preventDefault();
 
-        dispatch(logIn({
+        dispatch(register({
+            name,
             email,
             password
         }));
@@ -15,6 +16,16 @@ const SignInForm = ({ email, setEmail, password, setPassword }) => {
 
     return (
         <form onSubmit={onSubmit}>
+            <div>
+                <label htmlFor="name">User name:</label>
+                <input
+                    type="text"
+                    name="name"
+                    placeholder='User name'
+                    value={name}
+                    onChange={e => setName(e.target.value)} />
+            </div>
+
             <div>
                 <label htmlFor="email">E-mail:</label>
                 <input
@@ -35,9 +46,9 @@ const SignInForm = ({ email, setEmail, password, setPassword }) => {
                     onChange={e => setPassword(e.target.value)} />
             </div>
             
-            <input type="submit" value='Sign In' />
+            <input type="submit" value='Sign Up' />
         </form>
     );
 };
 
-export default SignInForm;
+export default SignUpForm;

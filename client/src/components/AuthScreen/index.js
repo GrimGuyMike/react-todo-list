@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { clearErrors } from "../state/actions/errorActions";
+import { clearErrors } from "../../state/actions/errorActions";
 import SignInForm from "./SignInForm";
 import SignUpForm from "./SignUpForm";
 

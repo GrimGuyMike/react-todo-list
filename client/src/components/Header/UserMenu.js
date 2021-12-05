@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteUser, logOut } from "../state/actions/authActions";
+import { deleteUser, logOut } from "../../state/actions/authActions";
 
 const UserMenu = () => {
     const dispatch = useDispatch();
