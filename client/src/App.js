@@ -4,7 +4,7 @@ import "./App.css";
 import ErrorMessage from "./components/ErrorMessage";
 import Header from "./components/Header";
 import MainScreen from "./components/MainScreen";
-import SignForm from "./components/SignForm";
+import AuthScreen from './components/AuthScreen';
 import { loadUser } from "./state/actions/authActions";
 import { AUTH } from "./state/actions/types";
 
@@ -37,7 +37,7 @@ function App() {
       {displayError()}
 
       <div id="content">
-        {authenticated ? <MainScreen /> : <SignForm />}
+        {authenticated ? <MainScreen /> : <AuthScreen />}
       </div>
     </div>
   );

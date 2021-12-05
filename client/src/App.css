@@ -147,34 +147,30 @@ header {
 }
 
 #sign-form > form {
-    display: none;
+    display: flex;
+    width: 600px;
+    flex-direction: column;
+    align-items: justify;
     background-color: var(--color-dark);
     border-radius: var(--radius-l);
     border-top-left-radius: initial;
     padding: 15px;
 }
 
-#sign-form > form.active {
-    display: flex;
-    width: 600px;
-    flex-direction: column;
-    align-items: justify;
-}
-
-#sign-form > form.active > * {
+#sign-form > form > * {
     animation: fadeIn var(--duration-s) ease-out 1 normal;
 }
 
-#sign-form > form.active > *:not(:last-child) {
+#sign-form > form > *:not(:last-child) {
     margin-bottom: 20px;
 }
 
-#sign-form > form.active > div {
+#sign-form > form > div {
     display: flex;
     align-items: center;
 }
 
-#sign-form > form.active > div > input {
+#sign-form > form > div > input {
     flex: 1;
     margin-left: var(--spacing-s);
     height: 20px;
@@ -182,7 +178,7 @@ header {
     border: none;
 }
 
-#sign-form > form.active > input[type='submit'] {
+#sign-form > form > input[type='submit'] {
     height: 25px;
     background-color: var(--color-func-green);
     color: var(--color-text-dark);
@@ -195,7 +191,7 @@ header {
     transition: all var(--duration-s) ease-out;
 }
 
-#sign-form > form.active > input[type='submit']:hover {
+#sign-form > form > input[type='submit']:hover {
     box-shadow: var(--color-func-green) 0 0 10px 0;
 }
 
