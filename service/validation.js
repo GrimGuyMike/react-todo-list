@@ -12,7 +12,7 @@ class ValidationService {
     };
     
     password(password) {
-        const regExp = /^([a-zA-Z0-9@*#]{8,20})$/;
+        const regExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
         if(!regExp.test(password)) throw ApiError.BadRequest('invalid password');
     };
 
