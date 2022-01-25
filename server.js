@@ -9,7 +9,7 @@ const apiRouter = require('./route/api');
 const logger = require('./middleware/logger');
 const errorHandler = require('./middleware/errorHandler');
 
-async function main() {
+(async function() {
     const PORT = process.env.PORT || 5000;
 
     app.use(express.json());
@@ -27,6 +27,4 @@ async function main() {
     console.log('Connected to database');
 
     app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
-};
-
-main();
+})();
