@@ -4,11 +4,12 @@
   "description": "",
   "private": true,
   "scripts": {
-    "client-install": "npm install --prefix client",
+    "install:client": "npm install --prefix client",
+    "build:client": "npm run build --prefix client",
     "start": "node server",
     "server": "nodemon server",
     "client": "npm run start --prefix client",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run install:client && npm run build:client"
   },
   "keywords": [],
   "author": "",
