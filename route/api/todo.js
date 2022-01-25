@@ -3,9 +3,11 @@ const router = new Router();
 const todoController = require('../../controller/api/todo');
 const authMiddleware = require('../../middleware/auth');
 
-router.post('/', authMiddleware, todoController.create);
-router.get('/', authMiddleware, todoController.get);
-router.patch('/:id', authMiddleware, todoController.update);
-router.delete('/:id', authMiddleware, todoController.delete);
+router.use(authMiddleware);
+
+router.post('/', todoController.create);
+router.get('/', todoController.get);
+router.patch('/:id', todoController.update);
+router.delete('/:id', todoController.delete);
 
 module.exports = router;
